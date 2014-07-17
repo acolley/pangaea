@@ -34,6 +34,7 @@ local function new(x,y)
 	return setmetatable({x = x or 0, y = y or 0}, vector)
 end
 local zero = new(0,0)
+local one = new(1,1)
 
 local function isvector(v)
 	return getmetatable(v) == vector
