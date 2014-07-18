@@ -8,4 +8,9 @@ function Camera:initialize()
     self.size = vector.new(1, 1)
 end
 
+function Camera:move(dx, dy)
+    self.position.x = self.position.x + dx
+    self.position.y = self.position.y + dy
+end
+
 return Camera

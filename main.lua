@@ -1,4 +1,5 @@
 require "lib/fez"
+local vector = require "lib/vector"
 
 local Camera = require "camera"
 local TileChunk = require "tilechunk"
@@ -18,6 +19,27 @@ function love.load()
         end
     end
     tilechunk = TileChunk(0, 0, 50, 50, tiles, texture)
+end
+
+function love.update(dt)
+    local direction = vector.new(0, 0)
+    local speed = 1000
+    if love.keyboard.isDown("up") then
+        direction.y = 1
+    end
+    if love.keyboard.isDown("down") then
+        direction.y = -1
+    end
+    if love.keyboard.isDown("left") then
+        direction.x = 1
+    end
+    if love.keyboard.isDown("right") then
+        direction.x = -1
+    end
+    if direction ~= vector.zero then
+        local move = direction:normalize_inplace() * speed * dt
+        camera:move(move.x, move.y)
+    end
 end
 
 function love.draw()
