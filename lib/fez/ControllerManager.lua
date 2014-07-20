@@ -186,7 +186,13 @@ function Controller( name, inherits )
     -----------------------
 
     function controller:update( ... )
-        if self.aspect then
+        if not self.aspect then
+            return
+        end
+        
+        if self.onUpdateAll then
+            self:onUpdateAll( self.aspect.list(), ... )
+        elseif self.onUpdate then
             for aspectEntity in self.aspect.list() do
                 self:onUpdate( aspectEntity, ... )
             end

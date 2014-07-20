@@ -1,6 +1,6 @@
 require "lib/fez"
 
-local AIAttribute = Behaviour("AIAttribute")
+local AIAttribute = Attribute("AIAttribute")
 function AIAttribute:onInit()
 end
 

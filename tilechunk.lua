@@ -16,5 +16,4 @@ end
 function TileChunk:draw()
     love.graphics.draw(self.spritebatch, self.x, self.y)
 end
-
 return TileChunk

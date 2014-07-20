@@ -4,11 +4,20 @@ local vector = require "lib/vector"
 local Camera = require "camera"
 local TileChunk = require "tilechunk"
 
+local AIAttribute = require "attributes/aiattribute"
+local Sprite = require "attributes/sprite"
+local Transform = require "attributes/transform"
+
+local AIController = require "controllers/aicontroller"
+local SpriteController = require "controllers/spritecontroller"
+
 local em = EntityManager()
 local cm = ControllerManager()
 local camera = Camera()
 
 function love.load()
+    love.window.setMode(1280, 800)
+    
     local texture = love.graphics.newImage("assets/tileset.png")
     local width, height = 50, 50
     local tilewidth, tileheight = 32, 32
@@ -19,6 +28,18 @@ function love.load()
         end
     end
     tilechunk = TileChunk(0, 0, 50, 50, tiles, texture)
+
+    aiController = AIController(cm)
+    spriteController = SpriteController(cm)
+
+    -- create entities
+    local robot = em:createEntity("robotman")
+    em:addComponentToEntity(robot, Transform())
+    em:addComponentToEntity(robot, AIAttribute())
+    em:addComponentToEntity(robot, Sprite(love.graphics.newQuad(14 * 32, 14 * 32, 32, 32, texture:getWidth(), texture:getHeight())))
+    em:refreshEntity(robot)
+
+    cm:refresh()
 end
 
 function love.update(dt)
@@ -40,6 +61,8 @@ function love.update(dt)
         local move = direction:normalize_inplace() * speed * dt
         camera:move(move.x, move.y)
     end
+
+    --aiController:update(dt)
 end
 
 function love.draw()
@@ -48,5 +71,6 @@ function love.draw()
     love.graphics.translate(camera.position.x, camera.position.y)
     love.graphics.scale(camera.size.x, camera.size.y)
     tilechunk:draw()
+    spriteController:update()
     love.graphics.pop()
 end
