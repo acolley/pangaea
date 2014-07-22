@@ -16,12 +16,8 @@ function AIController:onInit()
     self:setAspect(AIAspect)
 end
 
-function AIController:onControllersRefresh(cm)
-    -- store references here for faster lookup later
-    -- get other related controllers or components if needed
-end
-
-function AIController:onUpdate(aspect, dt)
-    aspect.Transform.position.x = aspect.Transform.position.x + 1
+function AIController:onUpdate(entity, dt)
+    --aspect.Transform.position.x = aspect.Transform.position.x + 1
+    --entity.AIAttribute.rootbehaviour.behave(dt)
 end
 return AIController

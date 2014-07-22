@@ -14,16 +14,12 @@ function SpriteController:onInit()
     self.spritebatch = love.graphics.newSpriteBatch(love.graphics.newImage("assets/tileset.png"), 1000, "stream")
 end
 
-function SpriteController:onControllersRefresh(cm)
-    self.cm = cm
-end
-
 function SpriteController:onUpdateAll(entities)
     -- TODO: use dt for animated sprites
     self.spritebatch:clear()
     for entity in entities do
-        local sprite = self.cm.entityManager:getComponentFromEntity(entity, Sprite)
-        local transform = self.cm.entityManager:getComponentFromEntity(entity, Transform)
+        local sprite = entity.Sprite
+        local transform = entity.Transform
         self.spritebatch:add(sprite.quad,
                              transform.position.x,
                              transform.position.y,
