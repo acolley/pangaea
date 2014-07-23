@@ -6,17 +6,17 @@ local Steering = require "attributes/steering"
 local Transform = require "attributes/transform"
 
 local Action = require "ai/action"
+local Seek = require "ai/actions/seek"
 local Selector = require "ai/selector"
+local SetVar = require "ai/setvar"
+local Sequence = require "ai/sequence"
 
 local function new(em, name, texture)
     -- TODO: replace texture with the spritesheet
     -- this actor will use, it will get its animation
     -- cells from the spritesheet using its name
-    local rootbehaviour = Selector(Action(function(cxt)
-        cxt.entity.Steering.state = "seek"
-        cxt.entity.Steering.target = vector.new(100, 100)
-        return "running"
-    end))
+    local rootbehaviour = Sequence(SetVar("target", vector.new(100, 100)),
+                                   Seek())
 
     local actor = em:createEntity(name)
     em:addComponentToEntity(actor, Transform())

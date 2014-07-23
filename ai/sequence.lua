@@ -1,8 +1,9 @@
-local function new(behaviours)
+local function new(...)
    local sequence = {}
    sequence.index = 1
-   sequence.behaviours = behaviours
+   sequence.behaviours = {...}
    sequence.process = function(self, cxt)
+       --if arg[#arg] == "-debug" then require("mobdebug").start() end
        local status = "success"
        while status == "success" and self.index <= #self.behaviours do
            status = self.behaviours[self.index]:process(cxt)
