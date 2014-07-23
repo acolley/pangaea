@@ -33,7 +33,7 @@ function love.load()
     spriteController = SpriteController(cm)
 
     -- create entities
-    local robot = em:createEntity("robotman")
+    local robot = em:createEntity("steve")
     em:addComponentToEntity(robot, Transform())
     em:addComponentToEntity(robot, AIAttribute())
     em:addComponentToEntity(robot, Sprite(love.graphics.newQuad(14 * 32, 14 * 32, 32, 32, texture:getWidth(), texture:getHeight())))

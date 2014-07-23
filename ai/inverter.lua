@@ -1,8 +1,8 @@
-function new(behaviour)
+local function new(behaviour)
     local inverter = {}
     inverter.behaviour = behaviour
-    inverter.behave = function(self, ...)
-        local status = self.behaviour:behave(...)
+    inverter.process = function(self, cxt)
+        local status = self.behaviour:process(cxt)
         if status == "success" then
             return "failure"
         elseif status == "failure" then

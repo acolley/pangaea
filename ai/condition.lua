@@ -1,8 +1,8 @@
-function new(predicate)
+local function new(predicate)
     local condition = {}
     condition.predicate = predicate
-    condition.behave = function(self, ...)
-        if self.predicate(...) then
+    condition.process = function(self, cxt)
+        if self.predicate(cxt) then
             return "success"
         else
             return "failure"

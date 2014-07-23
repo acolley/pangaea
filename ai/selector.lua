@@ -1,10 +1,10 @@
-function new(behaviours)
+local function new(behaviours)
     local selector = {}
     selector.behaviours = behaviours
-    selector.behave = function(self, ...)
+    selector.process = function(self, cxt)
         for behaviour in self.behaviours do
             -- TODO: change to process behaviours as coroutines?
-            local status = behaviour:behave(...)
+            local status = behaviour:process(cxt)
             if status == "success" or status == "running" then
                 return status
             end

@@ -1,18 +1,18 @@
-function new(behaviours)
-    local sequence = {}
-    sequence.behaviours = behaviours
-    sequence.behave = function(self, ...)
-        local running = false
-        for behaviour in self.behaviours do
-            local status = behaviour:behave(...)
-            if status == "failure" then
-                return "failure"
-            elseif status == "running" then
-                running = true
-        end
-        if running then return "running"
-        else return "success" end
-    end
-    return sequence
+local function new(behaviours)
+   local sequence = {}
+   sequence.index = 1
+   sequence.behaviours = behaviours
+   sequence.process = function(self, cxt)
+       local status = "success"
+       while status == "success" and self.index <= #self.behaviours do
+           status = self.behaviours[self.index]:process(cxt)
+           self.index = self.index + 1
+       end
+       if status == "failure" then
+           self.index = 1
+       end
+       return status
+   end
+   return sequence
 end
 return new
