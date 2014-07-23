@@ -1,12 +1,14 @@
 require "lib/fez"
 
 local AIAttribute = require "attributes/aiattribute"
+local Steering = require "attributes/steering"
 local Transform = require "attributes/transform"
 
 local AIAspect = Aspect("AIAspect")
 function AIAspect:getComponents()
     return {
         AIAttribute,
+        Steering,
         Transform
     }
 end
@@ -17,7 +19,9 @@ function AIController:onInit()
 end
 
 function AIController:onUpdate(entity, dt)
-    --aspect.Transform.position.x = aspect.Transform.position.x + 1
-    --entity.AIAttribute.rootbehaviour.behave(dt)
+    -- TODO: update entities every 20/30 frames to
+    -- reduce CPU load. Make sure to spread each entity
+    -- out so they don't all process at once
+    entity.AIAttribute.rootbehaviour:process({ ["entity"] = entity })
 end
 return AIController

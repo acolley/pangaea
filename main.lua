@@ -4,12 +4,11 @@ local vector = require "lib/vector"
 local Camera = require "camera"
 local TileChunk = require "tilechunk"
 
-local AIAttribute = require "attributes/aiattribute"
-local Sprite = require "attributes/sprite"
-local Transform = require "attributes/transform"
-
 local AIController = require "controllers/aicontroller"
 local SpriteController = require "controllers/spritecontroller"
+local SteeringController = require "controllers/steeringcontroller"
+
+local Actor = require "entities/actor"
 
 local em = EntityManager()
 local cm = ControllerManager()
@@ -31,13 +30,10 @@ function love.load()
 
     aiController = AIController(cm)
     spriteController = SpriteController(cm)
+    steeringController = SteeringController(cm)
 
     -- create entities
-    local robot = em:createEntity("steve")
-    em:addComponentToEntity(robot, Transform())
-    em:addComponentToEntity(robot, AIAttribute())
-    em:addComponentToEntity(robot, Sprite(love.graphics.newQuad(14 * 32, 14 * 32, 32, 32, texture:getWidth(), texture:getHeight())))
-    em:refreshEntity(robot)
+    Actor(em, "robot", texture)
 
     cm:refresh()
 end
@@ -62,7 +58,8 @@ function love.update(dt)
         camera:move(move.x, move.y)
     end
 
-    --aiController:update(dt)
+    aiController:update(dt)
+    steeringController:update(dt)
 end
 
 function love.draw()

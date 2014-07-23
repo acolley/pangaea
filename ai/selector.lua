@@ -1,9 +1,9 @@
-local function new(behaviours)
+local function new(...)
     local selector = {}
-    selector.behaviours = behaviours
+    selector.behaviours = {...}
     selector.process = function(self, cxt)
-        for behaviour in self.behaviours do
-            -- TODO: change to process behaviours as coroutines?
+        --if arg[#arg] == "-debug" then require("mobdebug").start() end
+        for i, behaviour in ipairs(self.behaviours) do
             local status = behaviour:process(cxt)
             if status == "success" or status == "running" then
                 return status
