@@ -3,7 +3,6 @@ local function new(...)
     sequence._index = 1
     sequence.behaviours = {...}
     sequence.process = function(self, cxt)
-        --if arg[#arg] == "-debug" then require("mobdebug").start() end
         local status = "success"
         while status == "success" and self._index <= #self.behaviours do
             status = self.behaviours[self._index]:process(cxt)

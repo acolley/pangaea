@@ -7,9 +7,10 @@ local function new()
     -- track of when it's close enough to the
     -- target to return "success"?
     return Action(function(cxt)
+        -- or should it get the top value off the stack?
         cxt.entity.Steering.state = "seek"
         cxt.entity.Steering.target = cxt.target
-        return "running"
+        return "success"
     end)
 end
 return new

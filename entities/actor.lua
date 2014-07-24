@@ -22,7 +22,7 @@ local function new(em, name, texture)
     em:addComponentToEntity(actor, Transform())
     em:addComponentToEntity(actor, AIAttribute(rootbehaviour))
     em:addComponentToEntity(actor, Sprite(love.graphics.newQuad(14 * 32, 14 * 32, 32, 32, texture:getWidth(), texture:getHeight())))
-    em:addComponentToEntity(actor, Steering(20))
+    em:addComponentToEntity(actor, Steering(50))
     em:refreshEntity(actor)
     return actor
 end
