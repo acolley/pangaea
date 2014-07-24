@@ -53,3 +53,4 @@ local function new(behaviours, succeed_all, fail_all)
     end
     return concurrent
 end
+return new
