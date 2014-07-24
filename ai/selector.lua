@@ -16,7 +16,7 @@ local function new(...)
         -- TODO: maybe this should be in an 'init()' method?
         -- an init() would make it possible to reset() child nodes
         -- as well, when this node has finished
-        if self._index > #self.behaviours then
+        if status == "success" or self._index > #self.behaviours then
             self._index = 1
         end
         return status
