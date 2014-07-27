@@ -6,6 +6,7 @@ local Steering = require "attributes/steering"
 local Transform = require "attributes/transform"
 
 local Action = require "ai/action"
+local Executor = require "ai/execution/executor"
 local Seek = require "ai/actions/seek"
 local Selector = require "ai/selector"
 local SetVar = require "ai/setvar"
@@ -15,7 +16,13 @@ local function new(em, name, texture)
     -- TODO: replace texture with the spritesheet
     -- this actor will use, it will get its animation
     -- cells from the spritesheet using its name
-    local rootbehaviour = Sequence(SetVar("target", vector.new(100, 100)),
+    
+    -- TODO: create an Executor that contains the persistent context
+    -- that the behaviour tree should use when running, then pass the
+    -- root behaviour to this to run continuously, however this will
+    -- need to be created in the AiController.onUpdate method as this
+    -- is the only point where it has access to the AI component
+    local rootbehaviour = Sequence(SetVar("target", vector.new(500, 500)),
                                    Seek())
 
     local actor = em:createEntity(name)

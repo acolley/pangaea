@@ -19,7 +19,13 @@ local function new(behaviours, succeed_all, fail_all)
     concurrent.succeed_all = succeed_all or false
     concurrent.fail_all = fail_all or false
     concurrent.behaviours = behaviours
-    concurrent.process = function(self, cxt)
+    concurrent.cxt = nil
+    concurrent.init = function(self, cxt)
+        -- TODO: should this also pass in its parent behaviour?
+        --self.parent = parent
+        self.cxt = cxt
+    end
+    concurrent.process = function(self)
         local successes = 0
         local failures = 0
         for i, behaviour in ipairs(self.behaviours) do
