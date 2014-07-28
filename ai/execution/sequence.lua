@@ -2,14 +2,18 @@ local function new(executorbt, model)
     local sequence = {}
     sequence._index = 1
     sequence.cxt = nil
-    sequence.behaviours = nil
+    sequence.behaviours = {}
     sequence.executorbt = executorbt
     sequence.model = model
     sequence.init = function(self, cxt)
         self.cxt = cxt
         
-        for behaviour in self.behaviours do
+        -- TODO: create all of them here or create them
+        -- on demand in the process function? This would
+        -- make it match the JBT behaviour
+        for i, behaviour in ipairs(self.model.behaviours) do
             local execbehaviour = behaviour:create_executor(self.executorbt)
+            execbehaviour:init(cxt)
             table.insert(self.behaviours, execbehaviour)
         end
     end

@@ -1,7 +1,8 @@
 require "lib/fez"
 
 local AIAttribute = Attribute("AIAttribute")
-function AIAttribute:onInit(rootbehaviour)
-    self.rootbehaviour = rootbehaviour
+function AIAttribute:onInit(rootmodel)
+    self.rootmodel = rootmodel
+    self.root = nil
 end
 return AIAttribute

@@ -6,11 +6,11 @@ function new(model, cxt)
     executor.execution = nil
     executor.process = function(self)
         if self._firsttick then
-            self.execution = self.model.create_executor(self)
-            self.execution.init(self.cxt)
+            self.execution = self.model:create_executor(self)
+            self.execution:init(self.cxt)
             self._firsttick = false
         end
-        return self.execution.process()
+        return self.execution:process()
     end
     return executor
 end
