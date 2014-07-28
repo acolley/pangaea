@@ -7,6 +7,7 @@ local function new(executorbt, model)
     sequence.model = model
     sequence.init = function(self, cxt)
         self.cxt = cxt
+        self._index = 1
         
         -- TODO: create all of them here or create them
         -- on demand in the process function? This would
@@ -24,9 +25,6 @@ local function new(executorbt, model)
             if status == "success" then
                 self._index = self._index + 1
             end
-        end
-        if status == "failure" or self._index > #self.behaviours then
-            self._index = 1
         end
         return status
     end

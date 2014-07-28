@@ -11,13 +11,15 @@ local Seek = require "ai/actions/seek"
 local Selector = require "ai/selector"
 local SetVar = require "ai/model/setvar"
 local Sequence = require "ai/model/sequence"
+local Wait = require "ai/model/wait"
 
 local function new(em, name, texture)
     -- TODO: replace texture with the spritesheet
     -- this actor will use, it will get its animation
     -- cells from the spritesheet using its name
     
-    local root = Repeater(Sequence(SetVar("target", vector.new(500, 500)),
+    local root = Repeater(Sequence(Wait(2000),
+                                   SetVar("target", vector.new(500, 500)),
                                    Seek()))
 
     local actor = em:createEntity(name)

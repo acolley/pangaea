@@ -9,7 +9,7 @@ local function new(executorbt, model)
     end
     wait.process = function(self)
         if self.start then
-            if (love.timer.getTime() - self.start) >= self.dt then
+            if (love.timer.getTime() - self.start) * 1000 >= self.model.dt then
                 return "success"
             end
         else
