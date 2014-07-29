@@ -1,7 +1,7 @@
 require "lib/fez"
 
 -- The Spatial component represents an Entity's
--- Spatial extens in the world, i.e. its bounding box
+-- Spatial extents in the world, i.e. its bounding box
 -- for render culling and update testing
 
 Spatial = Attribute("Spatial")
